@@ -160,39 +160,39 @@ const SortableSection = ({
       )}
     >
       <div className={cn(
-        "p-3 flex items-center justify-between bg-gray-50/50 border-b border-gray-100",
+        "p-2 flex items-center justify-between bg-gray-50/50 border-b border-gray-100",
         !isEnabled && "opacity-60"
       )}>
-        <div className="flex items-center gap-3 flex-1">
+        <div className="flex items-center gap-2 flex-1">
           <button 
             {...attributes} 
             {...listeners}
             className="p-1 text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
           >
-            <GripVertical size={18} />
+            <GripVertical size={16} />
           </button>
-          <div className="p-2 bg-white rounded-lg border border-gray-100 text-gray-600">
-            <Icon size={18} />
+          <div className="p-1.5 bg-white rounded-lg border border-gray-100 text-gray-600">
+            <Icon size={16} />
           </div>
-          <h3 className="font-semibold text-gray-900">{title}</h3>
+          <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           <button 
             onClick={() => toggleSection(id)}
             className={cn(
-              "p-2 rounded-lg transition-colors",
+              "p-1.5 rounded-lg transition-colors",
               isEnabled ? "text-blue-600 bg-blue-50" : "text-gray-400 hover:bg-gray-100"
             )}
             title={isEnabled ? "Disable Section" : "Enable Section"}
           >
-            {isEnabled ? <Eye size={18} /> : <EyeOff size={18} />}
+            {isEnabled ? <Eye size={16} /> : <EyeOff size={16} />}
           </button>
           <button 
             onClick={() => toggleExpand(id)}
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
             title={isExpanded ? "Minimize" : "Expand"}
           >
-            {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </button>
         </div>
       </div>
@@ -463,12 +463,12 @@ export const UnifiedEditor: React.FC<Props> = ({ data, onChange, onReset }) => {
 
   return (
     <div className="h-full flex flex-col bg-gray-50/30">
-      <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-900">Editor</h2>
+      <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-3">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-lg font-bold text-gray-900">Editor</h2>
           <button 
             onClick={onReset}
-            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            className="text-xs font-medium text-gray-500 hover:text-gray-900 transition-colors"
           >
             Reset All
           </button>
