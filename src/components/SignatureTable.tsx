@@ -135,6 +135,18 @@ export const SignatureTable: React.FC<Props> = ({ data, isExport = false }) => {
       case 'social':
         const enabledLinks = data.socialLinks.filter(l => l.enabled && l.url);
         if (enabledLinks.length === 0) return null;
+
+        const getFullUrl = (platform: string, path: string) => {
+          const cleanPath = path.replace(/^https?:\/\/(www\.)?/, '').replace(/^(facebook\.com|linkedin\.com\/in|wa\.me|instagram\.com)\//, '');
+          switch (platform) {
+            case 'facebook': return `https://facebook.com/${cleanPath}`;
+            case 'linkedin': return `https://linkedin.com/in/${cleanPath}`;
+            case 'whatsapp': return `https://wa.me/${cleanPath.replace(/\+/g, '')}`;
+            case 'instagram': return `https://instagram.com/${cleanPath}`;
+            default: return path;
+          }
+        };
+
         return (
           <tr key={id}>
             <td align={data.socialAlign} style={{ paddingBottom: `${globalSpacing}px` }}>
@@ -143,7 +155,7 @@ export const SignatureTable: React.FC<Props> = ({ data, isExport = false }) => {
                   <tr>
                     {enabledLinks.map((link, idx) => (
                       <td key={link.id} style={{ paddingRight: idx === enabledLinks.length - 1 ? '0' : '8px' }}>
-                        <a href={link.url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                        <a href={getFullUrl(link.platform, link.url)} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                           <img
                             src={`https://cdn-icons-png.flaticon.com/512/${
                               link.platform === 'facebook' ? '733/733547' :

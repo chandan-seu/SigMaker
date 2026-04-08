@@ -370,15 +370,37 @@ const SortableSection = ({
                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Icon Color</label>
                 <input type="color" value={data.socialIconColor} onChange={(e) => updateField('socialIconColor', e.target.value)} className="w-6 h-6 rounded cursor-pointer border-none p-0 bg-transparent" />
               </div>
-              {data.socialLinks.map((link) => (
-                <div key={link.id} className="space-y-2 p-3 bg-gray-50 rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-bold text-gray-500 uppercase">{link.platform}</span>
-                    <button onClick={() => updateSocialLink(link.id, { enabled: !link.enabled })} className={cn("text-[10px] font-bold px-2 py-1 rounded uppercase", link.enabled ? "bg-blue-100 text-blue-700" : "bg-gray-200 text-gray-600")}>{link.enabled ? 'Enabled' : 'Disabled'}</button>
+              {data.socialLinks.map((link) => {
+                const getBaseUrl = (platform: string) => {
+                  switch (platform) {
+                    case 'facebook': return 'facebook.com/';
+                    case 'linkedin': return 'linkedin.com/in/';
+                    case 'whatsapp': return 'wa.me/';
+                    case 'instagram': return 'instagram.com/';
+                    default: return '';
+                  }
+                };
+                return (
+                  <div key={link.id} className="space-y-2 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] font-bold text-gray-500 uppercase">{link.platform}</span>
+                      <button onClick={() => updateSocialLink(link.id, { enabled: !link.enabled })} className={cn("text-[10px] font-bold px-2 py-1 rounded uppercase", link.enabled ? "bg-blue-100 text-blue-700" : "bg-gray-200 text-gray-600")}>{link.enabled ? 'Enabled' : 'Disabled'}</button>
+                    </div>
+                    {link.enabled && (
+                      <div className="flex items-center gap-1 bg-white border border-gray-200 rounded px-2 py-1.5">
+                        <span className="text-xs text-gray-400 font-medium whitespace-nowrap">{getBaseUrl(link.platform)}</span>
+                        <input 
+                          type="text" 
+                          value={link.url} 
+                          onChange={(e) => updateSocialLink(link.id, { url: e.target.value })} 
+                          placeholder="username" 
+                          className="w-full text-sm outline-none bg-transparent" 
+                        />
+                      </div>
+                    )}
                   </div>
-                  {link.enabled && <input type="text" value={link.url} onChange={(e) => updateSocialLink(link.id, { url: e.target.value })} placeholder={`${link.platform} URL`} className="w-full px-3 py-1.5 text-sm bg-white border border-gray-200 rounded outline-none" />}
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
